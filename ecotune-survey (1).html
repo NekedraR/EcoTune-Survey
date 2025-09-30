@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTune Driver Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .intro p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #166534;
+        }
+
+        .question-block {
+            margin-bottom: 35px;
+        }
+
+        .question-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .required {
+            color: #ef4444;
+            margin-left: 4px;
+        }
+
+        .question-help {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover,
+        .checkbox-option:hover {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .scale-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .scale-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .scale-option input[type="radio"] {
+            display: none;
+        }
+
+        .scale-label {
+            display: block;
+            padding: 14px 8px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .scale-option input[type="radio"]:checked + .scale-label {
+            background: #22c55e;
+            color: white;
+            border-color: #22c55e;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #22c55e;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .scale-group {
+                flex-wrap: wrap;
+            }
+
+            .scale-option {
+                flex-basis: calc(20% - 8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🚗</div>
+            <h1>EcoTune Driver Survey</h1>
+            <p class="subtitle">Share your driving experience with us</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <p><strong>Thanks for taking the time!</strong> We're building EcoTune to help drivers like you save on gas, handle car issues, and drive smarter. Takes about 5 minutes.</p>
+            </div>
+
+            <form id="surveyForm">
+                <div class="section-title">About You</div>
+
+                <div class="question-block">
+                    <label class="question-label">Age range?<span class="required">*</span></label>
+                    <select name="age" required>
+                        <option value="">Pick one</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                        <option value="65+">65+</option>
+                    </select>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">Where are you from?<span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="location" value="Charlotte" required>
+                            <span>Charlotte area</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="location" value="Greensboro" required>
+                            <span>Greensboro area</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="location" value="Other" required>
+                            <span>Somewhere else in NC</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="location" value="Out of State" required>
+                            <span>Outside NC</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">How much do you drive?<span class="required">*</span></label>
+                    <select name="driveFrequency" required>
+                        <option value="">Choose one</option>
+                        <option value="Daily">Every day</option>
+                        <option value="4-6 times per week">Most days (4-6x/week)</option>
+                        <option value="2-3 times per week">Few times a week (2-3x)</option>
+                        <option value="Once a week">About once a week</option>
+                        <option value="Less than once a week">Rarely</option>
+                    </select>
+                </div>
+
+                <div class="section-title">💰 Gas Money</div>
+
+                <div class="question-block">
+                    <label class="question-label">What do you spend on gas each month?<span class="required">*</span></label>
+                    <select name="fuelSpending" required>
+                        <option value="">Select amount</option>
+                        <option value="Under $50">Less than $50</option>
+                        <option value="$50-$100">$50-$100</option>
+                        <option value="$100-$150">$100-$150</option>
+                        <option value="$150-$200">$150-$200</option>
+                        <option value="$200-$300">$200-$300</option>
+                        <option value="Over $300">More than $300</option>
+                    </select>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">How worried are you about gas prices going up?<span class="required">*</span></label>
+                    <div class="scale-group">
+                        <div class="scale-option">
+                            <input type="radio" name="fuelConcern" value="1" id="fuel1" required>
+                            <label for="fuel1" class="scale-label">1</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="fuelConcern" value="2" id="fuel2" required>
+                            <label for="fuel2" class="scale-label">2</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="fuelConcern" value="3" id="fuel3" required>
+                            <label for="fuel3" class="scale-label">3</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="fuelConcern" value="4" id="fuel4" required>
+                            <label for="fuel4" class="scale-label">4</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="fuelConcern" value="5" id="fuel5" required>
+                            <label for="fuel5" class="scale-label">5</label>
+                        </div>
+                    </div>
+                    <div class="scale-labels">
+                        <span>Not worried</span>
+                        <span>Really worried</span>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">Would seeing your gas usage in an app help you save money?<span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="dashboardInterest" value="Yes, definitely" required>
+                            <span>Yeah, for sure</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="dashboardInterest" value="Maybe, if it's easy to use" required>
+                            <span>Maybe, depends how simple it is</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="dashboardInterest" value="Not sure" required>
+                            <span>Not sure</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="dashboardInterest" value="No, not interested" required>
+                            <span>Probably not</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-title">🔧 Car Problems</div>
+
+                <div class="question-block">
+                    <label class="question-label">How comfortable are you fixing basic car stuff?<span class="required">*</span></label>
+                    <div class="scale-group">
+                        <div class="scale-option">
+                            <input type="radio" name="maintenanceComfort" value="1" id="maint1" required>
+                            <label for="maint1" class="scale-label">1</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="maintenanceComfort" value="2" id="maint2" required>
+                            <label for="maint2" class="scale-label">2</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="maintenanceComfort" value="3" id="maint3" required>
+                            <label for="maint3" class="scale-label">3</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="maintenanceComfort" value="4" id="maint4" required>
+                            <label for="maint4" class="scale-label">4</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="maintenanceComfort" value="5" id="maint5" required>
+                            <label for="maint5" class="scale-label">5</label>
+                        </div>
+                    </div>
+                    <div class="scale-labels">
+                        <span>Totally clueless</span>
+                        <span>Pretty handy</span>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">What car problems bug you the most? (Pick any that fit)<span class="required">*</span></label>
+                    <span class="question-help">Check everything that applies</span>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="Don't know what's wrong with my car">
+                            <span>Can't figure out what's broken</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="Repairs are too expensive">
+                            <span>Mechanic bills are crazy expensive</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="Don't know how to fix simple issues myself">
+                            <span>Don't know how to do simple fixes</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="Can't tell if mechanic is being honest">
+                            <span>Not sure if my mechanic's telling the truth</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="Forget to do regular maintenance">
+                            <span>Always forget about oil changes and stuff</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="maintenanceChallenges" value="None of these">
+                            <span>None of these really</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">What if you could take a pic of your engine and get instant help?<span class="required">*</span></label>
+                    <span class="question-help">Like pointing your phone at the problem and getting answers</span>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="aiAssistant" value="Yes, very helpful" required>
+                            <span>That'd be awesome</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="aiAssistant" value="Somewhat helpful" required>
+                            <span>Sounds pretty useful</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="aiAssistant" value="Not sure" required>
+                            <span>Not sure</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="aiAssistant" value="Not helpful" required>
+                            <span>Probably wouldn't use it</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-title">🌱 Driving Better</div>
+
+                <div class="question-block">
+                    <label class="question-label">Do you think about the environment when you drive?<span class="required">*</span></label>
+                    <div class="scale-group">
+                        <div class="scale-option">
+                            <input type="radio" name="ecoImportance" value="1" id="eco1" required>
+                            <label for="eco1" class="scale-label">1</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="ecoImportance" value="2" id="eco2" required>
+                            <label for="eco2" class="scale-label">2</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="ecoImportance" value="3" id="eco3" required>
+                            <label for="eco3" class="scale-label">3</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="ecoImportance" value="4" id="eco4" required>
+                            <label for="eco4" class="scale-label">4</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="ecoImportance" value="5" id="eco5" required>
+                            <label for="eco5" class="scale-label">5</label>
+                        </div>
+                    </div>
+                    <div class="scale-labels">
+                        <span>Not really</span>
+                        <span>Yeah, a lot</span>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">What would make you want to drive more efficiently? (Pick any)<span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Saving money on fuel">
+                            <span>Spending less on gas</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Reducing environmental impact">
+                            <span>Helping the environment</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Real-time feedback and tips">
+                            <span>Getting tips while I drive</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Tracking my progress over time">
+                            <span>Seeing how I improve over time</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Gamification and rewards">
+                            <span>Earning points or rewards</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="ecoMotivation" value="Nothing would motivate me">
+                            <span>Nothing really</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">Would you try an app that gives you driving tips in real time?<span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="coachingInterest" value="Yes, definitely" required>
+                            <span>Yeah, I'd try it</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="coachingInterest" value="Maybe, if it's not distracting" required>
+                            <span>Maybe, if it's not annoying</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="coachingInterest" value="Not sure" required>
+                            <span>Not sure</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="coachingInterest" value="No, not interested" required>
+                            <span>Nah, not for me</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-title">📱 Final Thoughts</div>
+
+                <div class="question-block">
+                    <label class="question-label">Would you download an app like this?<span class="required">*</span></label>
+                    <div class="scale-group">
+                        <div class="scale-option">
+                            <input type="radio" name="downloadLikelihood" value="1" id="down1" required>
+                            <label for="down1" class="scale-label">1</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="downloadLikelihood" value="2" id="down2" required>
+                            <label for="down2" class="scale-label">2</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="downloadLikelihood" value="3" id="down3" required>
+                            <label for="down3" class="scale-label">3</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="downloadLikelihood" value="4" id="down4" required>
+                            <label for="down4" class="scale-label">4</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" name="downloadLikelihood" value="5" id="down5" required>
+                            <label for="down5" class="scale-label">5</label>
+                        </div>
+                    </div>
+                    <div class="scale-labels">
+                        <span>Probably not</span>
+                        <span>Definitely would</span>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">What bugs you most about driving these days?</label>
+                    <span class="question-help">Any challenges or frustrations you deal with</span>
+                    <textarea name="biggestFrustration" placeholder="Whatever's on your mind..."></textarea>
+                </div>
+
+                <div class="question-block">
+                    <label class="question-label">Want us to let you know when EcoTune launches?</label>
+                    <input type="email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Survey</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Thanks for your help! 🚗💚</p>
+            <p style="margin-top: 8px;">All responses are anonymous and only used for this research.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const maintenanceChallenges = document.querySelectorAll('input[name="maintenanceChallenges"]:checked');
+            const ecoMotivation = document.querySelectorAll('input[name="ecoMotivation"]:checked');
+            
+            if (maintenanceChallenges.length === 0) {
+                alert('Please select at least one maintenance challenge.');
+                return;
+            }
+            
+            if (ecoMotivation.length === 0) {
+                alert('Please select at least one eco-driving motivation.');
+                return;
+            }
+            
+            const formData = new FormData(this);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (key === 'maintenanceChallenges' || key === 'ecoMotivation') {
+                    if (!data[key]) data[key] = [];
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            console.log('Survey Data:', data);
+            
+            alert('Thanks for finishing the survey! Your feedback really helps us build EcoTune.');
+            
+            this.reset();
+        });
+    </script>
+</body>
+</html>
